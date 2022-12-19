@@ -14,6 +14,18 @@ export default function Login() {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
+      App.setAddress(accounts[0]);
+
+      const chainId = await ethereum.request({ method: "eth_chainId" });
+      console.log(chainId);
+      if (chainId === "0x5") {
+        App.setChain("0x5");
+      } else if (chainId === "0xaa36a7") {
+        App.setChain("0xaa36a7");
+      } else {
+        setError("Available only for Goerli and Sepolia");
+        return App.setLogin(false);
+      }
       App.setLogin(true);
     } catch (error) {
       setError(`"${error.message}"`);
@@ -22,7 +34,7 @@ export default function Login() {
 
   return (
     <div className="min-w-full h-4/5 flex justify-center flex-col items-center ">
-      <img className="h-25" src="quickpay.png" alt="logo" />
+      <img className="h-30" src="quickpay.png" alt="logo" />
       {ethereum !== undefined ? (
         <div
           onClick={loginWallet}
@@ -36,6 +48,7 @@ export default function Login() {
       ) : (
         <a
           target={"_blank"}
+          rel="noreferrer"
           href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"
         >
           <div className="flex justify-center items-center py-1 px-2 cursor-pointer bg-[#0F4C75] rounded-lg ">
