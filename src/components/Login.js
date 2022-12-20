@@ -1,5 +1,6 @@
 import React, { useState, createContext, useContext } from "react";
 import { AppState } from "../App";
+import { Signer, ethers } from "ethers";
 
 export default function Login() {
   const App = useContext(AppState);
@@ -17,15 +18,19 @@ export default function Login() {
       App.setAddress(accounts[0]);
 
       const chainId = await ethereum.request({ method: "eth_chainId" });
-      console.log(chainId);
+      console.log(chainId, "login");
       if (chainId === "0x5") {
         App.setChain("0x5");
+        // App.setBalance(ethers.utils.formatEther(balance));
       } else if (chainId === "0xaa36a7") {
         App.setChain("0xaa36a7");
       } else {
         setError("Available only for Goerli and Sepolia");
         return App.setLogin(false);
       }
+
+      //balance
+
       App.setLogin(true);
     } catch (error) {
       setError(`"${error.message}"`);

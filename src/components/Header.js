@@ -11,19 +11,17 @@ export default function Header() {
 
   const handleChange = (e) => {
     setValues(e.target.value);
-    App.setChain(e.target.value);
+    // App.setChain(e.target.value);
   };
   const openMetamask = async () => {
     await ethereum.request({
       method: "wallet_requestPermissions",
       params: [{ eth_accounts: {} }],
     });
-    console.log("opem");
   };
 
   useEffect(() => {
     const changeChain = async () => {
-      console.log(values);
       // if (value === App.chain.id)
       await ethereum.request({
         method: "wallet_switchEthereumChain",
@@ -32,16 +30,18 @@ export default function Header() {
       await ethereum.on("accountsChanged", (accounts) => {
         App.setAddress(accounts[0]);
       });
+      App.setChain(values);
+      console.log(values);
     };
     changeChain();
-  }, [values]);
+  });
   return (
     <div className="w-full h1/4 pt-4 px-2 flex items-start justify-between ">
       <img src="quickpay.png" className="h-14" />
       <div className="flex justify-center items-center gap-1">
         <div
           className="text-md mr-2 font-sans border-opacity-25 border border-blue-700  font-medium cursor-pointer bg-[#a7c3d5] px-4 py-1 text-semiBlue rounded-lg flex justify-between items-center"
-          onClick={()=>openMetamask()}
+          onClick={() => openMetamask()}
         >
           {App.address.slice(0, 8)}...{App.address.slice(38)}
           <IoWalletOutline className="text-darkBlue h-6 w-6 ml-1" />
