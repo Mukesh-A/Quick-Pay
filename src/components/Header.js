@@ -31,6 +31,7 @@ export default function Header() {
         App.setAddress(accounts[0]);
       });
       App.setChain(values);
+
       console.log(values);
     };
     changeChain();

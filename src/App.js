@@ -11,6 +11,7 @@ function App() {
   const [address, setAddress] = useState("");
   const [chain, setChain] = useState("");
   const [balance, setBalance] = useState("");
+  const [currency, setCurrency] = useState("");
 
   // const chainId = await signer.getChainId();
   // setChain(ethers.utils.hexlify(chainId));
@@ -68,6 +69,8 @@ function App() {
         setChain,
         balance,
         setBalance,
+        currency,
+        setCurrency,
       }}
     >
       <div className="min-w-full  h-screen">

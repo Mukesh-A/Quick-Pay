@@ -16,6 +16,13 @@ export default function Main() {
       const balance = await signer.getBalance();
       App.setBalance(ethers.utils.formatEther(balance));
       console.log(ethers.utils.formatEther(balance));
+
+
+      if (App.chain === "0x5") {
+        App.setCurrency("Goreli");
+      } else if (App.chain === "0xaa36a7") {
+        App.setCurrency("Sepolia");
+      }
     }
     runs();
   }, [App.chain, App.address]);

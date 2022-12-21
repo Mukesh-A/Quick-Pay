@@ -21,9 +21,11 @@ export default function Login() {
       console.log(chainId, "login");
       if (chainId === "0x5") {
         App.setChain("0x5");
+        // App.setCurrency("Goerli");
         // App.setBalance(ethers.utils.formatEther(balance));
       } else if (chainId === "0xaa36a7") {
         App.setChain("0xaa36a7");
+        // App.setCurrency("Sepolia");
       } else {
         setError("Available only for Goerli and Sepolia");
         return App.setLogin(false);
