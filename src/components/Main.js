@@ -17,7 +17,6 @@ export default function Main() {
       App.setBalance(ethers.utils.formatEther(balance));
       console.log(ethers.utils.formatEther(balance));
 
-
       if (App.chain === "0x5") {
         App.setCurrency("Goreli");
       } else if (App.chain === "0xaa36a7") {
@@ -27,8 +26,8 @@ export default function Main() {
     runs();
   }, [App.chain, App.address]);
   return (
-    <div className="flex fl ex-col justify-center items-center mt-8 ">
-      <div className="border-opacity-25 border border-blue-700 rounded-lg">
+    <div className="grid place-items-center h-96 ">
+      <div className="border-opacity-25 border border-blue-700 rounded-lg shadow-lg shadow-blue-500/50">
         <MainRoute />
       </div>
     </div>

@@ -3,6 +3,8 @@ import Main from "./components/Main";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import { Signer, ethers } from "ethers";
+
+import "react-toastify/dist/ReactToastify.css";
 const AppState = createContext();
 
 function App() {
@@ -12,6 +14,12 @@ function App() {
   const [chain, setChain] = useState("");
   const [balance, setBalance] = useState("");
   const [currency, setCurrency] = useState("");
+
+  const [ercAddress, setErcAddress] = useState("");
+  const [recipientAddress, setRecipientAddress] = useState("");
+  const [amount, setAmount] = useState("");
+  const [quickPayContractAddress, setQuickPayContractAddress] =
+    useState("0xc1742c1d2f8eb71c3f8f10bbe0662cf1283101cb");
 
   // const chainId = await signer.getChainId();
   // setChain(ethers.utils.hexlify(chainId));
@@ -71,6 +79,14 @@ function App() {
         setBalance,
         currency,
         setCurrency,
+        recipientAddress,
+        setRecipientAddress,
+        amount,
+        setAmount,
+        ercAddress,
+        setErcAddress,
+        quickPayContractAddress,
+        setQuickPayContractAddress,
       }}
     >
       <div className="min-w-full  h-screen">

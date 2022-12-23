@@ -7,7 +7,7 @@ import Send from "./Send";
 export default function MainRoute() {
   return (
     <BrowserRouter className="">
-      <ul className="flex flex-shrink flex-row justify-center items-center gap-8 text-lg font-medium cursor-pointer bg-semiBlue px-4 py-1 text-Blue rounded-lg">
+      <ul className="flex flex-shrink flex-row justify-center items-center gap-8 text-lg font-medium cursor-pointer bg-semiBlue px-4 py-1 text-Blue rounded-t-lg">
         <li className="px-3">
           <Link to="/">Send</Link>
         </li>
