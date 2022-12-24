@@ -14,12 +14,22 @@ function App() {
   const [chain, setChain] = useState("");
   const [balance, setBalance] = useState("");
   const [currency, setCurrency] = useState("");
-
+  const [explorer, setExplorer] = useState("");
   const [ercAddress, setErcAddress] = useState("");
   const [recipientAddress, setRecipientAddress] = useState("");
   const [amount, setAmount] = useState("");
-  const [quickPayContractAddress, setQuickPayContractAddress] =
-    useState("0xc1742c1d2f8eb71c3f8f10bbe0662cf1283101cb");
+  const [quickPayContractAddress, setQuickPayContractAddress] = useState(
+    "0xc1742c1d2f8eb71c3f8f10bbe0662cf1283101cb"
+  );
+  const [showRecentTx, setShowRecentTx] = useState(false);
+  const [recentTx, setRecentTx] = useState({
+    txhash: "",
+    from: "",
+    to: "",
+    amount: "",
+    symbol: "",
+  });
+  const [saveTxLoad, setSaveTxLoad] = useState(false);
 
   // const chainId = await signer.getChainId();
   // setChain(ethers.utils.hexlify(chainId));
@@ -87,6 +97,14 @@ function App() {
         setErcAddress,
         quickPayContractAddress,
         setQuickPayContractAddress,
+        showRecentTx,
+        setShowRecentTx,
+        recentTx,
+        setRecentTx,
+        saveTxLoad,
+        setSaveTxLoad,
+        explorer,
+        setExplorer,
       }}
     >
       <div className="min-w-full  h-screen">

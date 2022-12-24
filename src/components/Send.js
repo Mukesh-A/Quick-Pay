@@ -16,7 +16,7 @@ export default function Send() {
   const [transferLoading, setTransferLoading] = useState(false);
   const [checking, setChecking] = useState(false);
   const [verify, setVerify] = useState(true);
-  // const [symbol, setSymbol] = useState("gEth");
+  const [symbol, setSymbol] = useState("gEth");
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
@@ -39,7 +39,7 @@ export default function Send() {
         const balance = await ErcContract.balanceOf(App.address);
         const symbol = await ErcContract.symbol();
         App.setBalance(ethers.utils.formatEther(balance));
-        // App.setSymbol(symbol);
+        setSymbol(symbol);
         App.setCurrency(name);
         setChecking(true);
         setTimeout(() => setErcLoading(false), 3000);
@@ -97,6 +97,15 @@ export default function Send() {
         toast.success("Transferred Successfully with ERC", {
           position: toast.POSITION.TOP_RIGHT,
         });
+
+        App.setRecentTx({
+          txhash: tx.hash,
+          from: App.address,
+          to: App.recipientAddress,
+          amount: App.amount,
+          symbol: symbol,
+        });
+        App.setShowRecentTx(true);
       } else {
         console.log("address");
         setTransferLoading(true);
@@ -125,6 +134,33 @@ export default function Send() {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
+  };
+  const saveTx = async () => {
+    App.setSaveTxLoad(true);
+    try {
+      const QuickPayContract = new ethers.Contract(
+        App.quickPayContractAddress,
+        quickPayAbi.output.abi,
+        signer
+      );
+      const tx = await QuickPayContract.saveTx(
+        App.recentTx.from,
+        App.recentTx.to,
+        ethers.utils.parseEther(App.recentTx.amount),
+        App.recentTx.symbol
+      );
+      await tx.wait();
+      setTransferLoading(false);
+      toast.success("Saved Transaction Successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } catch (err) {
+      toast.error(err.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+    App.setShowRecentTx(false);
+    App.setSaveTxLoad(false);
   };
   return (
     <div className="flex flex-col justify-center items-center my-5">
@@ -213,36 +249,48 @@ export default function Send() {
       </div>
 
       {/* Recent Tx section */}
+
       <div
-        className={`w-5/6 bg-semiBlue rounded-lg bg-opacity-70 border border-blue-700 border-opacity-50  mt-2`}
+        className={`${
+          App.showRecentTx ? " " : "hidden"
+        } w-5/6 bg-semiBlue rounded-lg bg-opacity-70 border border-blue-700 border-opacity-50  mt-2`}
       >
         <div className="flex w-full flex-col items-center justify-center rounded-t-lg">
           <div className="w-4/6 py-2 px-2 flex flex-col items-center ">
-            <p className="text-sm font-mono text-Blue">
-              Acc:0xDB632661B625605D7661073D75c0BC031A60B26C{" "}
-            </p>
+            <p className="text-sm font-mono text-Blue">Acc:{App.recentTx.to}</p>
             <div className="w-full  flex items-center justify-between gap-x-2 font-mono text-sm cursor-pointer text-opacity-30">
-              <p className="text-md font-mono text-Blue">Amount: 0.001 </p>
-              <a target={"_blank"}>View Transaction</a>
+              <p className="text-md font-mono text-Blue">
+                Amount: {App.recentTx.amount}
+                {App.recentTx.symbol}
+              </p>
+              <a
+                target={"_blank"}
+                href={`${App.explorer}/tx/${App.recentTx.txhash}`}
+              >
+                View Transaction
+              </a>
             </div>
           </div>
-
-          <div className="flex justify-center items-center gap-2 font-medium font-mono bg-opacity-80   py-1 mr-2 rounded-md">
-            <button
-              onClick={() => removeToken()}
-              className="text-sm px-3   outline-0 font-sans text-lg cursor-pointer bg-semiBlue text-Blue rounded-lg flex justify-center items-center gap-1"
-            >
-              Save
-            </button>
-            {/* } */}
-            <button
-              onClick={() => removeToken()}
-              className="text-sm px-3   outline-0 font-sans text-lg cursor-pointer bg-semiBlue text-Blue rounded-lg flex justify-center items-center gap-1"
-            >
-              Ignore
-            </button>
-            {/* <TailSpin height={18} width={18} color={"white"} /> */}
-          </div>
+          {App.saveTxLoad ? (
+            <TailSpin height={18} width={18} color={"white"} />
+          ) : (
+            <div className="flex justify-center items-center gap-2 font-medium font-mono bg-opacity-80   py-1 mr-2 rounded-md">
+              <button
+                onClick={saveTx}
+                className="text-sm px-3   outline-0 font-sans text-lg cursor-pointer bg-semiBlue text-Blue rounded-lg flex justify-center items-center gap-1"
+              >
+                Save
+              </button>{" "}
+              <button
+                onClick={() => App.setShowRecentTx(false)}
+                className="text-sm px-3   outline-0 font-sans text-lg cursor-pointer bg-semiBlue text-Blue rounded-lg flex justify-center items-center gap-1"
+              >
+                Ignore
+              </button>
+              {/* } */}
+              {/*  */}
+            </div>
+          )}
         </div>
       </div>
 
