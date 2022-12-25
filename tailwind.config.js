@@ -8,9 +8,9 @@ module.exports = {
         semiBlue: "#0F4C75",
         lightBlue: "#3282B8",
         Blue: "#BBE1FA",
-        blueWhite: "#a7c3d5"
+        blueWhite: "#a7c3d5",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };
