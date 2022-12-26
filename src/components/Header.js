@@ -37,11 +37,11 @@ export default function Header() {
     changeChain();
   });
   return (
-    <div className="w-full h1/4 pt-4 px-2 flex items-start justify-between ">
-      <img src="quickpay.png" className="h-14" />
-      <div className="flex justify-center items-center gap-1">
+    <div className="w-full h-20 pt-4 px-2 flex items-start justify-between  ">
+      <img src="quickpay.png" className="h-14 sm:h-8 md:h-14" />
+      <div className=" sm:gap-0 flex justify-center items-center gap-1">
         <div
-          className="text-md mr-2 font-sans border-opacity-25 border border-blue-700  font-medium cursor-pointer bg-[#a7c3d5] px-4 py-1 text-semiBlue rounded-lg flex justify-between items-center"
+          className="sm:w-36 text-md mr-2 font-sans border-opacity-25 border border-blue-700  font-medium cursor-pointer bg-[#a7c3d5] px-4 py-1 text-semiBlue rounded-lg flex justify-between items-center"
           onClick={() => openMetamask()}
         >
           {App.address.slice(0, 8)}...{App.address.slice(38)}
@@ -52,7 +52,7 @@ export default function Header() {
           {App.chain}
         </div> */}
         <select
-          className="text-md px-1 py-1 outline-0 font-sans font-medium cursor-pointer bg-semiBlue text-Blue rounded-lg flex justify-between items-center"
+          className="text-md px-1 py-1 outline-0 font-sans font-medium cursor-pointer bg-semiBlue text-Blue rounded-lg "
           value={values}
           onChange={handleChange}
         >

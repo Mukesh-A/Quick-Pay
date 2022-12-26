@@ -107,7 +107,7 @@ function App() {
         setExplorer,
       }}
     >
-      <div className="min-w-full  h-screen">
+      <div className="min-w-full bg-no-repeat	 h-screen items-center ">
         {login ? (
           <>
             <Header />

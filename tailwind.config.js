@@ -11,6 +11,22 @@ module.exports = {
         blueWhite: "#a7c3d5",
       },
     },
+    screens: {
+      sm: "10px",
+      // => @media (min-width: 640px) { ... }
+
+      md: "641px",
+      // => @media (min-width: 768px) { ... }
+
+      lg: "1008px",
+      // => @media (min-width: 1024px) { ... }
+
+      // xl: "1280px",
+      // // => @media (min-width: 1280px) { ... }
+
+      // "2xl": "1536px",
+      // // => @media (min-width: 1536px) { ... }
+    },
   },
   plugins: [require("tailwind-scrollbar")],
 };

@@ -26,7 +26,7 @@ export default function Main() {
     runs();
   }, [App.chain, App.address]);
   return (
-    <div className="grid place-items-center h-96 ">
+    <div className="min-w-44 flex justify-center items-center min-h-96 sm:w-5/6 m-auto mt-24">
       <div className="border-opacity-25 border border-blue-700 rounded-lg shadow-lg shadow-blue-500/50">
         <MainRoute />
       </div>

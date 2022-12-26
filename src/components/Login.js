@@ -24,7 +24,7 @@ export default function Login() {
         App.setQuickPayContractAddress(
           "0xc1742c1d2f8eb71c3f8f10bbe0662cf1283101cb"
         );
-        App.setExplorer("https://goerli.etherscan.io/");
+        App.setExplorer("https://goerli.etherscan.io");
         // App.setCurrency("Goerli");
         // App.setBalance(ethers.utils.formatEther(balance));
       } else if (chainId === "0xaa36a7") {
@@ -32,7 +32,7 @@ export default function Login() {
         App.setQuickPayContractAddress(
           "0xc1742c1d2f8eb71c3f8f10bbe0662cf1283101cb"
         );
-        App.setExplorer("https://sepolia.etherscan.io/");
+        App.setExplorer("https://sepolia.etherscan.io");
         // App.setCurrency("Sepolia");
       } else {
         setError();
